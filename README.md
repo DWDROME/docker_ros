@@ -52,3 +52,61 @@ docker build -t ros2_foxy_dev .
 2. 如需指定网卡，取消脚本中`CYCLONEDDS_INTERFACE`的注释并设置正确的网卡名称
 
 3. 容器默认挂载主机`~/x3_ws`到容器`/ros2_ws`，可按需修改`start_foxy_docker.sh`
+
+你可以按以下步骤**彻底删除之前构建或运行的 Docker 容器与镜像**，确保环境干净：
+
+---
+
+### ✅ **1. 停止并删除运行中的容器（如有）**
+```bash
+docker ps -a   # 查看所有容器（包括已停止）
+```
+
+如果你看到 `ros2_foxy_gui` 或其它相关容器，执行：
+```bash
+docker stop ros2_foxy_gui
+docker rm ros2_foxy_gui
+```
+
+---
+
+### ✅ **2. 删除旧的镜像**
+列出所有镜像：
+```bash
+docker images
+```
+
+找到你构建的镜像名称，比如 `ros2_foxy_gui` 或 `your_tag_name`，然后执行：
+```bash
+docker rmi ros2_foxy_gui
+```
+
+如果不确定可以直接清除无用镜像：
+```bash
+docker image prune -a -f
+```
+
+---
+
+### ✅ **3. 清除挂载卷（可选）**
+如果你用 `-v` 绑定了 host 目录，这一步可以跳过；
+否则可以用以下命令删除未使用的卷：
+```bash
+docker volume prune -f
+```
+
+---
+
+### ✅ **4. 检查空间是否释放（可选）**
+```bash
+docker system df
+```
+
+---
+
+如你已确定新的 Dockerfile，接下来可以执行：
+```bash
+docker build -t ros2_foxy_gui .
+```
+
+然后我可以帮你写一键运行脚本。是否现在就帮你生成一个？
