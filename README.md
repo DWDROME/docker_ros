@@ -109,4 +109,3 @@ docker system df
 docker build -t ros2_foxy_gui .
 ```
 
-然后我可以帮你写一键运行脚本。是否现在就帮你生成一个？
